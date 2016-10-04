@@ -13,7 +13,8 @@ Depends:
     R (>= 2.15.0),
     MASS,
     tools,
-    seewave
+    seewave,
+    tuneR
 LazyLoad: TRUE
 Collate:
     'features.R'
