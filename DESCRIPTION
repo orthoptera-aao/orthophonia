@@ -1,0 +1,27 @@
+Package: orthophonia
+Type: Package
+Title: todo
+Version: 0.1
+Date: 2016-10-04
+Authors@R: c(
+    person("Quentin", "Geissmann", role = c("aut", "cre"),email ="qgeissmann@gmail.com"))
+Author: Quentin Geissmann
+Maintainer: Quentin Geissmann <qgeissmann@gmail.com>
+Description: TODO
+License: GPL (>=3.0)
+Depends:
+    R (>= 2.15.0),
+    MASS,
+    tools,
+    seewave
+LazyLoad: TRUE
+Collate:
+    'features.R'
+    'preprocessing.R'
+URL: https://github.com/BioAcoustica/orthophonia
+RoxygenNote: 5.0.1
+Suggests: 
+    testthat,
+    devtools,
+    roxygen2,
+    parallel
