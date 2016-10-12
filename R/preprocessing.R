@@ -1,5 +1,3 @@
-#' @include 
-NULL
 #' Applies automatic bandpass filter to an AM sound
 #' 
 #' This function assumes that the wave is a recording containing principally 

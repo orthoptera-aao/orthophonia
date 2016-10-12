@@ -5,7 +5,29 @@
 \title{Locates pulses}
 \usage{
 pulseSegmentation(wave, alpha = 1.4, gamma = 0.05, u = 2.7, v = 10.8,
-  beta = u/4, zeta = v/2)
+  beta = u/4, zeta = v/u)
+}
+\arguments{
+\item{wave}{an R object}
+
+\item{alpha}{the coefficient for the upper dynamic threshold}
+
+\item{gamma}{see eq.8}
+
+\item{u}{the duration, in ms, of the short#' @param v the duration, in ms, of the long-time window-time window}
+
+\item{v}{the duration, in ms, of the long-time window}
+
+\item{beta}{see eq.}
+
+\item{zeta}{see eq.}
+}
+\value{
+a \code{data.table} with the onset and duration of detected pulses
+#' @param v the duration, in ms, of the long-time window
+#' @param v the duration, in ms, of the long-time window
+
+a bandpass filter wave of the same type as \code{wave}
 }
 \description{
 test
