@@ -1,0 +1,10 @@
+id,species,file,start,end
+1,Metrioptera_brachyptera,900_3_Metrioptera_brachyptera_118r2.wav,27.0,39.0
+2,Tettigonia_hispanica,586_2_Tettigonia_hispanica_754r2.wav,34,60
+3,Tettigonia_hispanica,586_2_Tettigonia_hispanica_754r2.wav,60,105
+4,Metrioptera_roeselli,394-4_Metrioptera_roeselli_360_.wav,35,60 
+5,Metrioptera_roeselli,394-4_Metrioptera_roeselli_360_.wav,60,120
+6,Metrioptera_roeselli,394-4_Metrioptera_roeselli_360_.wav,120,180
+7,Platycleis_affinis,899_9_Platycleis_affinis_112r6.wav,3,14
+8,Platycleis_grisea,424-17_Platycleis_grisea_605r1_.wav,36,60 
+9,Platycleis_grisea,424-17_Platycleis_grisea_605r1_.wav,60,120
