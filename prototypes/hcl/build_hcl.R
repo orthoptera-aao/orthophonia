@@ -14,7 +14,7 @@ query <- fread("./query.csv")
 energyAutoCorrelogram <- function(wave, 
                                   wl=0.3, #ms
                                   down_sample_factor=10,
-                                  lag_max=2000 #todo, put in ms
+                                  lag_max=50000 #todo, put in ms
                                   ){
   wl_n_points <- round(wl * 1e-3 * wave@samp.rate /2) * 2 + 1
   s <- runmed(abs(wave@left),wl_n_points)  
@@ -64,21 +64,23 @@ dt <- query[,
 map <- dt[,as.data.table(t(combn(full_id, 2)))]
 setnames(map, c("V1", "V2"), c("x", "y"))
 map[, comp_id := 1:.N]
-pdf()
+pdf("~/Desktop/acf_res.pdf",w=16,h=9)
 dist_dt <- map[,
                .(dist = distanceWrapper(dt,x,y, FUN=distance,log="x",main=paste(x,y))),
                by=c("comp_id","x","y")]
-dev.off()
+
 dist_dt_wide <- reshape(dist_dt, idvar = "x", timevar ="y", v.names= "dist", direction = "wide")
 
 dist_mat <- as.matrix(dist_dt_wide[,3:ncol(dist_dt_wide),with=F])
 dist_mat <- cbind(NA,dist_mat)
 dist_mat <- rbind(dist_mat,NA)
 
-dist_mat[lower.tri(dist_mat,diag=F)] <- dist_mat[upper.tri(dist_mat,diag=F)]
+dist_mat[lower.tri(dist_mat,diag=F)] <- t(dist_mat)[lower.tri(dist_mat,diag=F)]
 diag(dist_mat) <- 0
 rownames(dist_mat) <- dt[,full_id]
 colnames(dist_mat) <- dt[,full_id]
 
 dist_mat <- as.dist(dist_mat)
-hclust(dist_mat)
+hcl <- hclust(dist_mat)
+plot(hcl)
+dev.off()
