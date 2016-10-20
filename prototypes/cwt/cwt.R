@@ -19,6 +19,7 @@ signal1 <- runmed(signal1, 21)
 signal1 <- signal1[seq(from=0,to=length(signal1), by=20)]
 
 
+
 signal2 <- abs(wav2@left)
 #smooth and downsample
 signal2 <- runmed(signal2, 21)
@@ -83,7 +84,21 @@ beatSpectrum <- function(wave,
   data.table(power=wt$Power.avg, period = wt$Period * min_period)
 }
 
-wav1 <- readWave("~/Desktop/ortho_data/589_1_Tettigonia_cantans_768r1.wav",
+wav1 <- readWave("~/Desktop/ortho_data/old/589_1_Tettigonia_cantans_768r1.wav",
                  from = 45, to=85,units = "seconds")
+s <- summary(wav1)
+
+
+wav1 <- readWave("~/Desktop/ortho_data/424-17_Platycleis_grisea_605r1_.wav",
+                 from = 60, to=100,units = "seconds")
+beat_sptrm <- beatSpectrum(wav1)
+
+struct = c(400,35,1.25)
+ggplot(beat_sptrm, aes(period*1000, power)) + 
+    geom_point(size=.1) + scale_x_log10() +
+    annotate("segment", 
+           x = struct, xend = struct,
+           y = -Inf, yend = +Inf,
+           colour = "blue")
 
 
