@@ -7,7 +7,7 @@
 standardiseWave(wave, f = 44100, stereo = FALSE, bit = 1)
 }
 \arguments{
-\item{wave}{an R object}
+\item{wave}{an R object or the path of a wave file}
 
 \item{f}{the expected target frequency}
 

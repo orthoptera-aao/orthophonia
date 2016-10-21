@@ -4,14 +4,17 @@
 \alias{autoBandPassFilter}
 \title{Applies automatic bandpass filter to an AM sound}
 \usage{
-autoBandPassFilter(wave, bps = 2, min_freq = 1000, wl = 2^10)
+autoBandPassFilter(wave, bps = 2, min_freq = 1000, max_freq = 15000,
+  wl = 2^10)
 }
 \arguments{
-\item{wave}{an R object}
+\item{wave}{an R object or path to a wave file}
 
 \item{bps}{the bandpass size relative to \deqn{\sigma}{sigma}}
 
 \item{min_freq}{the lowest expected frequency, in Hz}
+
+\item{max_freq}{the highest expected frequency, in Hz}
 
 \item{wl}{the window length for spectrogram generation}
 }

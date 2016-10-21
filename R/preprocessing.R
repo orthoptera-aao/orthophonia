@@ -4,9 +4,10 @@
 #' a single source and amplitude modulated song. 
 #' It tries to find and apply automatic bandpass filter in order to reduce noise.
 #' 
-#' @param wave an R object
+#' @param wave an R object or path to a wave file
 #' @param bps the bandpass size relative to \deqn{\sigma}{sigma}
 #' @param min_freq the lowest expected frequency, in Hz
+#' @param max_freq the highest expected frequency, in Hz
 #' @param wl the window length for spectrogram generation
 #' @return a bandpass filter wave of the same type as \code{wave}
 #' @note 
@@ -25,19 +26,25 @@ autoBandPassFilter <- function(
   wave,
   bps=2, 
   min_freq=1000,
+  max_freq=15000,
   wl=2^10
   ){
   
 
   std_wave <- standardiseWave(wave)
-  spec <- meanspec(std_wave, wl=wl,ovlp = 75, plot=F)
+  spec <- meanspec(std_wave, wl=wl,ovlp = 75, plot=T)
+  
   
   spec <- spec[spec[,"x"] > min_freq/1e3,]
   f <- spec[which.max(spec[,"y"]),"x"] * 1e3
-  sigma <- sd(spec)* 1e3
+  props <- specprop(spec)
+  sigma <- props$sd
+  
+  min_f <- max(c(0, f  - sigma * bps/2))
+  max_f <- min(max_freq, f + sigma * bps/2)
   filt_wave <- bwfilter(std_wave, 
-                       from = (f  - sigma * bps/2), 
-                       to = (f + sigma * bps/2), output="Wave")
+                       from = min_f, 
+                       to = max_f, output="Wave")
   filt_wave <- standardiseWave(filt_wave)
   return(filt_wave)
 }
@@ -47,13 +54,17 @@ NULL
 #' This function defines the internal data representation used in this package.
 #' It is interanlly called in most other functions. 
 #' 
-#' @param wave an R object
+#' @param wave an R object or the path of a wave file
 #' @param f the expected target frequency
 #' @param stereo wether the expected object is stereo (else it is mono)
 #' @param bit the bit depth
 #' @return a \code{Wave}  object that may have been altered to match package standard representation
 #' @export
 standardiseWave <- function(wave, f=44100, stereo=FALSE, bit=1){
+  # we also allow wave to be a file
+  if(is.character(wave))
+    wave <- readWave(wave, units = "seconds")
+  
   out <- wave
 
   if(wave@stereo & !stereo){
@@ -70,7 +81,6 @@ standardiseWave <- function(wave, f=44100, stereo=FALSE, bit=1){
     out <- downsample(out, f)
   if(wave@samp.rate < f)
     stop("Not implemented, need to upsample sound")
-  print(out)
   out <- normalize(out, unit=as.character(bit))
   return(out)
 }

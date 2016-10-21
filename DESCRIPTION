@@ -14,11 +14,13 @@ Depends:
     MASS,
     tools,
     seewave,
-    tuneR
+    tuneR,
+    WaveletComp
 LazyLoad: TRUE
 Collate:
     'features.R'
     'preprocessing.R'
+    'beat_spectrum.R'
 URL: https://github.com/BioAcoustica/orthophonia
 RoxygenNote: 5.0.1
 Suggests: 

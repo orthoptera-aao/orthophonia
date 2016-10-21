@@ -13,8 +13,6 @@
 #' @return a \code{data.table} with the onset and duration of detected pulses
 #' #' @param v the duration, in ms, of the long-time window
 #' #' @param v the duration, in ms, of the long-time window
-#' @return a bandpass filter wave of the same type as \code{wave}
-#' 
 #' @export
 pulseSegmentation <- function(wave, 
                               alpha=1.4, 

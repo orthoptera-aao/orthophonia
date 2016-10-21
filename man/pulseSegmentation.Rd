@@ -26,8 +26,6 @@ pulseSegmentation(wave, alpha = 1.4, gamma = 0.05, u = 2.7, v = 10.8,
 a \code{data.table} with the onset and duration of detected pulses
 #' @param v the duration, in ms, of the long-time window
 #' @param v the duration, in ms, of the long-time window
-
-a bandpass filter wave of the same type as \code{wave}
 }
 \description{
 test
