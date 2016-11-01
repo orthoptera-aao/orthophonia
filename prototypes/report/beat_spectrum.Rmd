@@ -1,0 +1,119 @@
+Quantitative description of song structure based on beat spectra
+===========================================
+
+
+The problem of the structure of songs
+---------------------------------------------------
+
+The basic component of Orthoptera songs is the pulse.
+Therefore, most studies focus on pulse (and inter-pulse) features.
+However, songs of some species are organised in a very hierarchical fashion -- pulses are grouped to form syllable, and syllables make echemes.
+
+Higher level structures (syllable and echemes) may contain some valuable information to define/classify songs, and ought to be characterised.
+
+The first part of this document will provide and example of complex song hierarchy. Afterwards, it will explain how beat spectra can be used to encapsulate such structures. Finally, it will describe how they can be used to classify songs.
+
+An example of elaborate song structure
+
+------------------------------------------------------
+
+The following song, from *Chorthippus dorsatus* (bioacoustica annotation 277) is a good illustration of this hierarchical organasition.
+
+```{r, message=F, warning=F}
+# preparing data
+library(bioacoustica)
+library(orthophonia)
+library(data.table)
+library(ggplot2)
+
+DATA_DIR <- "~/Desktop/ortho_data/"
+
+all_annotations = getAllAnnotationData()
+query = all_annotations[id == 277]
+my_annotations <- dowloadFilesForAnnotations(query,
+                                             dst_dir = DATA_DIR,
+                                             verbose=T)
+#the example signal
+wave_expl <- standardiseWave(my_annotations[id==277, annotation_path])
+# a data table used only to plot signal
+dt_expl <- data.table(x=wave_expl@left, t = 1:length(wave_expl@left)/wave_expl@samp.rate)
+```
+
+The whole song looks like that:
+
+```{r}
+ggplot(dt_expl[seq(from=1, to=.N, by=20)], aes(t, x)) +
+    geom_line() +
+    annotate("rect", xmin = 0.4, xmax = 1.25,
+             ymin = -Inf, ymax = +Inf, alpha = .2,
+             colour="blue", fill="blue")+
+    labs(title="Segment of Chorthippus dorsatus song",
+         x="t (s)")
+```
+
+At this scale, we can see that the song contains high-level structures, **echemes** (e.g. the blue rectangle), that have a **periodicity of about 1s**.
+
+If we select this echeme and study its structure:
+
+```{r}
+ggplot(dt_expl[t> 0.4 & t<1.25][seq(from=1, to=.N, by=5)], aes(t, x)) +
+  annotate("rect", xmin = 0.65, xmax = 0.69,
+             ymin = -Inf, ymax = +Inf, alpha = .2,
+             colour="blue", fill="blue")+
+    geom_line() +
+    labs(title="Segment of Chorthippus dorsatus song",
+         x="t (s)")
+```
+
+We can observe that it contains **syllables** that are separated by around **80ms**.
+
+Now, at an even finer resolution,
+
+```{r}
+ggplot(dt_expl[t> 0.65 & t<0.69], aes(t *1e3, x)) +
+    geom_line() +
+    annotate("rect", xmin = 660.5, xmax = 663.5,
+             ymin = -Inf, ymax = +Inf, alpha = .2,
+             colour="blue", fill="blue")+
+    labs(title="Segment of Chorthippus dorsatus song",
+         x="t (ms)")
+```
+
+We see distinct pulses with a periodicity around **4ms**.
+
+
+Altogether, this song has **three layers of periodicity**.
+In order to describe such structure, one needs a tool capable of providing good enough frequency (i.e. period) resolution at a large range of scales. In this example, the rhythmicity spans over three orders of magnitudes (i.e. nearly 10 octaves).
+
+The beat spectrum
+--------------------------------
+
+My work has so far conducted me to devise an algorithm to extract information about the rhythm of songs.
+In order to remain relatively agnostic to the expected range of period expected, I used continuous wavelet transform as it naturally provides dynamic range (log) resolution of periods.
+This tool can generate a "beat spectrum", which is a period (or frequency) representation of the rhythmicity the sound envelope.
+
+If we apply it to the previous example, we get:
+
+```{r}
+wave_expl <- autoBandPassFilter(wave_expl)
+dt <- beatSpectrum(wave_expl)
+
+arrows <- data.table(xend=c(5,80,1400), yend=c(0.35,0.15,0.4))
+arrows$x = arrows$xend * 1.2
+arrows$y = arrows$yend + 0.1
+
+ggplot(dt, aes(period*1000, power)) +
+  geom_bar(stat="identity", colour="blue", fill="blue") +
+  scale_x_log10(breaks=c(10^(0:3), 3*10^(0:3))) +
+  labs(title="Beat spectrum of\nChorthippus dorsatus song",
+         x="Period (ms)")+
+  geom_segment(data=arrows,aes(x=x,xend=xend,y=y,yend=yend),arrow=arrow(length=unit(0.2,"cm")), colour="red")
+```
+
+The red arrows indicate the three peaks corresponding to the three levels of rhythmicity. They are at **5ms, 80ms and 1.4s**, from left to right, which matches the results we obtained through graphical inspection.
+
+Classification of beat spectra
+----------------------------------
+
+TODO
+
