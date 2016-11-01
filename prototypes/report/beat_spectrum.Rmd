@@ -118,7 +118,7 @@ Classification of beat spectra
 The idea is to generalise the use of such tool to classify songs.
 For instance, we could several pull songs from two species: *Chorthippus dorsatus* and *Chorthippus brunneus*, and attempt to cluster them based on their rhythmicity.
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, cache=T}
 DATA_DIR <- "~/Desktop/ortho_data/"
 taxa <- c("Chorthippus Glyptobothrus brunneus","Chorthippus Chorthippus dorsatus")
 all_annotations = getAllAnnotationData()
@@ -144,8 +144,11 @@ dt <- my_annotations[, pipelineFunction(annotation_path), by=id]
 
 print(dt)
 dt <- my_annotations[dt]
+```
+
+```{r, warning=F}
 ggplot(dt, aes(period, power, group=id)) + geom_line(alpha=.3) +
-   scale_x_log10() + facet_wrap(~ taxon, nrow=2 )  
+   scale_x_log10(name="period (s)", limits=c(1e-3,5e1)) + facet_wrap(~ taxon, nrow=2 )  
 ```
 
 Now, lets perform a hierarchical clustering.
@@ -167,11 +170,11 @@ cvis <- sapply(hc.sbd, cvi, b = names(datalist))
 #labels <- paste(unique(dt)$taxon_id, ,sep="_")
 result <- hc.sbd[[which.min(cvis["VI", ])]]
 result$labels <- unique(dt)$id
-plot(result)
+
 ddata <- dendro_data(result, type = "rectangle")
 
 labs <- as.data.table(ddata$labels)
-labs[, id := label]
+labs$id = labs$label
 setkey(labs,id)
 labs <- unique(dt)[,.(id,taxon_id)][labs]
 ddata$labels <- labs
@@ -179,9 +182,11 @@ ddata$labels <- labs
 ggplot(segment(ddata)) + 
   geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) + 
   geom_text(data = ddata$labels, 
-              aes(x = x, y = y, label = label, colour=taxon_id), size = 3, vjust = 0.5, hjust=0)+ 
-  coord_flip() +
-  scale_y_reverse(expand = c(0.2, 0))
+            aes(x = x, y = y, label = label,
+                colour=taxon_id), size = 3, 
+                vjust = 0.5, hjust=0) + 
+  coord_flip() + scale_y_reverse(expand = c(0.2, 0)) +
+  theme_dendro()
 
 ```
 
