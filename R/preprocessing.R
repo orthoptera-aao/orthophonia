@@ -9,6 +9,7 @@
 #' @param min_freq the lowest expected frequency, in Hz
 #' @param max_freq the highest expected frequency, in Hz
 #' @param wl the window length for spectrogram generation
+#' @param plot whether to plot the power spectrum
 #' @return a bandpass filter wave of the same type as \code{wave}
 #' @note 
 #' todo ref (Dietrich et al., 2004)
@@ -27,13 +28,13 @@ autoBandPassFilter <- function(
   bps=2, 
   min_freq=1000,
   max_freq=15000,
-  wl=2^10
+  wl=2^10,
+  plot=F
   ){
   
 
   std_wave <- standardiseWave(wave)
-  spec <- meanspec(std_wave, wl=wl,ovlp = 75, plot=T)
-  
+  spec <- meanspec(std_wave, wl=wl,ovlp = 75, plot=plot)
   
   spec <- spec[spec[,"x"] > min_freq/1e3,]
   f <- spec[which.max(spec[,"y"]),"x"] * 1e3
@@ -63,7 +64,7 @@ NULL
 standardiseWave <- function(wave, f=44100, stereo=FALSE, bit=1){
   # we also allow wave to be a file
   if(is.character(wave))
-    wave <- readWave(wave, units = "seconds")
+    wave <- readWave(wave)
   
   out <- wave
 
@@ -84,4 +85,6 @@ standardiseWave <- function(wave, f=44100, stereo=FALSE, bit=1){
   out <- normalize(out, unit=as.character(bit))
   return(out)
 }
+
+
 
