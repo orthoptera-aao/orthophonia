@@ -60,7 +60,7 @@ dev.off()
 #' 
 beatSpectrum <- function(wave, 
                          min_period = 5e-4,#s
-                         max_period=10, #s,
+                         max_period=30, #s,
                          dj=1/32, # 1/nvoices
                          ...
                          ){

@@ -52,7 +52,7 @@ distance <- function(x, y, ...){
 }
 
 distanceWrapper <- function(data,V1,V2, FUN,...){
-  FUN(data[full_id==V1,features], data[full_id==V2,features],...)
+  FUN(data[full_id==V1,features], data[full_id==V2,featbeat_sptrmures],...)
 }
 
 query[, full_id := paste(species, id, sep="_")]

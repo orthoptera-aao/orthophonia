@@ -8,3 +8,6 @@ id,species,file,start,end
 7,Platycleis_affinis,899_9_Platycleis_affinis_112r6.wav,3,14
 8,Platycleis_grisea,424-17_Platycleis_grisea_605r1_.wav,36,60 
 9,Platycleis_grisea,424-17_Platycleis_grisea_605r1_.wav,60,120
+10,Tettigonia_cantans,423-2_Tettigonia_cantans_596b_.wav,2,60
+11,Tettigonia_cantans,423-2_Tettigonia_cantans_596b_.wav,150,210
+12,Tettigonia_cantans,589_1_Tettigonia_cantans_768r1.wav,25,85

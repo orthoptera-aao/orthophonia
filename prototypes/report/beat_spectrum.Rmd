@@ -1,5 +1,5 @@
 Quantitative description of song structure based on beat spectra
-===========================================
+===============================================================
 
 
 The problem of the structure of songs
@@ -133,8 +133,9 @@ query <- query[ end - start < 30 ]
 
 # This is what we would like to do to each annotation:
 pipelineFunction <- function(file_name){
+  #print(file_name)
   wave <- standardiseWave(file_name)
-  wave <- autoBandPassFilter(wave)
+  #wave <- autoBandPassFilter(wave)
   beatSpectrum(wave)
 }
 
@@ -176,14 +177,19 @@ ddata <- dendro_data(result, type = "rectangle")
 labs <- as.data.table(ddata$labels)
 labs$id = labs$label
 setkey(labs,id)
-labs <- unique(dt)[,.(id,taxon_id)][labs]
-ddata$labels <- labs
+tmp_dt <- unique(dt)[,.(id,taxon_id)]
+tmp_dt[,id :=as.character(id)]
+
+setkey(tmp_dt,id)
+
+labs <- tmp_dt[labs]
+
 
 ggplot(segment(ddata)) + 
   geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) + 
-  geom_text(data = ddata$labels, 
+  geom_text(data = labs, 
             aes(x = x, y = y, label = label,
-                colour=taxon_id), size = 3, 
+                colour=taxon_id), 
                 vjust = 0.5, hjust=0) + 
   coord_flip() + scale_y_reverse(expand = c(0.2, 0)) +
   theme_dendro()
@@ -206,7 +212,7 @@ In conclusion, beat spectrum can be used to characterised structure of songs. Th
 
 There are several ways to improve classification:
 
-* Curate original data by ensuring annotations are not mislabelled (see annotation 244 ans 274)
-* Obtain more data in order to have a representative sample of the expected structural diversity
+* Curate original data by ensuring annotations are not mislabelled (see annotation 244 and 274).
+* Obtain more data in order to have a representative sample of the expected structural diversity.
 * Combine beat spectrum clustering with power spectrum (frequency) clustering.
 
