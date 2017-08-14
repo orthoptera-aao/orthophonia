@@ -7,7 +7,7 @@
 #' @param wave an R object or path to a wave file
 #' @param bps the bandpass size relative to \deqn{\sigma}{sigma}
 #' @param min_freq the lowest expected frequency, in Hz
-#' @param max_freq the highest expected frequency, in Hz
+#' @param max_freq the highest expected frequency, in Hz (Default: NULL to use Nyquist frequency)
 #' @param wl the window length for spectrogram generation
 #' @param plot whether to plot the power spectrum
 #' @return a bandpass filter wave of the same type as \code{wave}
@@ -27,12 +27,15 @@ autoBandPassFilter <- function(
   wave,
   bps=2, 
   min_freq=1000,
-  max_freq=15000,
+  max_freq=NULL,
   wl=2^10,
   plot=F
-  ){
+){
+  #If max_freq not set then use half of sample rate
+  if (is.null(max_freq)) {
+    max_freq <- wave@samp.rate / 2
+  }
   
-
   std_wave <- standardiseWave(wave)
   spec <- meanspec(std_wave, wl=wl,ovlp = 75, plot=plot)
   
@@ -44,8 +47,8 @@ autoBandPassFilter <- function(
   min_f <- max(c(0, f  - sigma * bps/2))
   max_f <- min(max_freq, f + sigma * bps/2)
   filt_wave <- bwfilter(std_wave, 
-                       from = min_f, 
-                       to = max_f, output="Wave")
+                        from = min_f, 
+                        to = max_f, output="Wave")
   filt_wave <- standardiseWave(filt_wave)
   return(filt_wave)
 }
