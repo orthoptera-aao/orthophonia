@@ -32,7 +32,7 @@ autoBandPassFilter <- function(
   plot=F
 ){
   #If max_freq not set then use half of sample rate
-  if (is.null(max_freq) {
+  if (is.null(max_freq)) {
     max_freq <- wave@samp.rate / 2
   }
   
