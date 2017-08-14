@@ -15,7 +15,8 @@ Depends:
     tools,
     seewave,
     tuneR,
-    WaveletComp
+    WaveletComp,
+    data.table
 LazyLoad: TRUE
 Collate:
     'features.R'
