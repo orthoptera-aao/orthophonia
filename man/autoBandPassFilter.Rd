@@ -17,6 +17,7 @@ autoBandPassFilter(wave, bps = 2, min_freq = 1000, max_freq = NULL,
 \item{wl}{the window length for spectrogram generation}
 
 \item{plot}{Is set to TRUE the function will plot the output.}
+}
 
 \value{
 a bandpass filter wave of the same type as \code{wave}
