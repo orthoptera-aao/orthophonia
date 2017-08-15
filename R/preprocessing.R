@@ -1,28 +1,3 @@
-#' Applies automatic bandpass filter to an AM sound
-#' 
-#' This function assumes that the wave is a recording containing principally 
-#' a single source and amplitude modulated song. 
-#' It tries to find and apply automatic bandpass filter in order to reduce noise.
-#' 
-#' @param wave an R object or path to a wave file
-#' @param bps the bandpass size relative to \deqn{\sigma}{sigma}
-#' @param min_freq the lowest expected frequency, in Hz
-#' @param max_freq the highest expected frequency, in Hz (Default: NULL to use Nyquist frequency)
-#' @param wl the window length for spectrogram generation
-#' @param plot whether to plot the power spectrum
-#' @return a bandpass filter wave of the same type as \code{wave}
-#' @note 
-#' todo ref (Dietrich et al., 2004)
-#' @details 
-#' The \code{bps} arguments refers to the selectivity of the filter.
-#' It represents the width of the bandpass filter relative to
-#' the standard deviation of the PDF, in frequency range.
-#' In the original publication \code{bps} = 2 (i.e. \deqn{2\sigma}{2 sigmas}, see eq. 3).
-#' The present implementation allow to alter this parameter. 
-#' Higher values will result in broader (i.e. less selective) filter.
-# @examples
-# @seealso \code{\link{meanspec}}, internally used to build spectrogram.
-#' @export
 autoBandPassFilter <- function(
   wave,
   bps=2, 
@@ -52,18 +27,7 @@ autoBandPassFilter <- function(
   filt_wave <- standardiseWave(filt_wave)
   return(filt_wave)
 }
-NULL
-#' Standardise a Wave object for package consistency
-#' 
-#' This function defines the internal data representation used in this package.
-#' It is interanlly called in most other functions. 
-#' 
-#' @param wave an R object or the path of a wave file
-#' @param f the expected target frequency
-#' @param stereo wether the expected object is stereo (else it is mono)
-#' @param bit the bit depth
-#' @return a \code{Wave}  object that may have been altered to match package standard representation
-#' @export
+
 standardiseWave <- function(wave, f=44100, stereo=FALSE, bit=1){
   # we also allow wave to be a file
   if(is.character(wave))
