@@ -12,16 +12,16 @@ autoBandPassFilter <- function(
   }
   
   std_wave <- standardiseWave(wave)
-  spec <- meanspec(std_wave, wl=wl,ovlp = 75, plot=plot)
+  spec <- seewave::meanspec(std_wave, wl=wl,ovlp = 75, plot=plot)
   
-  spec <- spec[spec[,"x"] > min_freq/1e3,]
-  f <- spec[which.max(spec[,"y"]),"x"] * 1e3
-  props <- specprop(spec)
+  spec <- seewave::spec[spec[,"x"] > min_freq/1e3,]
+  f <- seewave::spec[which.max(spec[,"y"]),"x"] * 1e3
+  props <- seewave::specprop(spec)
   sigma <- props$sd
   
   min_f <- max(c(0, f  - sigma * bps/2))
   max_f <- min(max_freq, f + sigma * bps/2)
-  filt_wave <- bwfilter(std_wave, 
+  filt_wave <- seewave::bwfilter(std_wave, 
                         from = min_f, 
                         to = max_f, output="Wave")
   filt_wave <- standardiseWave(filt_wave)
@@ -31,22 +31,22 @@ autoBandPassFilter <- function(
 standardiseWave <- function(wave, f=44100, stereo=FALSE, bit=1){
   # we also allow wave to be a file
   if(is.character(wave))
-    wave <- readWave(wave)
+    wave <- tuneR::readWave(wave)
   
   out <- wave
 
   if(wave@stereo & !stereo){
-    out <- mono(out,which="both")  
+    out <- tuneR::mono(out,which="both")  
     warning("Averaging left and right stereo channels to make a mono track")
   }
   
   if(!wave@stereo & stereo){
-    out <- stereo(out,out)  
+    out <- tuneR::stereo(out,out)  
     warning("Mono to stereo conversion. Both channels will be duplicates")
   }
   
   if(wave@samp.rate > f)
-    out <- downsample(out, f)
+    out <- tuneR::downsample(out, f)
   if(wave@samp.rate < f)
     stop("Not implemented, need to upsample sound")
   out <- normalize(out, unit=as.character(bit))
