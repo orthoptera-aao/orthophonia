@@ -4,7 +4,7 @@ autoBandPassFilter <- function(
   min_freq=1000,
   max_freq=NULL,
   wl=2^10,
-  plot=F
+  plot=FALSE
 ){
   #If max_freq not set then use half of sample rate
   if (is.null(max_freq)) {
