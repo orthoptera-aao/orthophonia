@@ -15,7 +15,6 @@ autoBandPassFilter(wave, bps = 2, min_freq = 1000, max_freq = NULL,
 \item{max_freq}{the highest expected frequency, in Hz. If NULL the Nyquist frequency of the file will be used.}
 
 \item{wl}{the window length for spectrogram generation}
-}
 
 \item{plot}{Is set to TRUE the function will plot the output.}
 
