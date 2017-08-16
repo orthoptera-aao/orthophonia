@@ -7,7 +7,7 @@ Authors@R: c(
     person("Quentin", "Geissmann", role = c("aut", "cre"),email ="qgeissmann@gmail.com"))
 Author: Quentin Geissmann
 Maintainer: Quentin Geissmann <qgeissmann@gmail.com>
-Description: TODO
+Description: Functions for bioacoustics analysis.
 License: GPL (>=3.0)
 Depends:
     R (>= 2.15.0),
