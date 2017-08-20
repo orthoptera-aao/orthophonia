@@ -3,6 +3,8 @@ import("MASS")
 import("tools")
 importFrom("tuneR", "readWave", "mono", "stereo", "downsample")
 import("WaveletComp")
+importFrom("graphics", "abline")
+importFrom("stats", "approx", "filter", "na.omit", "runmed")
 
 export(autoBandPassFilter)
 export(beatSpectrum)

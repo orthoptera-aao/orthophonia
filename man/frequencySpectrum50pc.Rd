@@ -5,7 +5,7 @@
 Computes the frequency spectrum (50pc/3dB)
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Calculates the peak frequency and minimum and maximum values of the 50\%frequency bandwidth.
 }
 \usage{
 frequencySpectrum50pc(wave, plot=FALSE)
