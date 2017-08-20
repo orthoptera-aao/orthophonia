@@ -1,19 +1,3 @@
-#' Computes a beat spectrum
-#' 
-#' Beat spectra represent the periodicity in signal amplitude.
-#' It is computed by performing a continuous wavelet transform on
-#' the envelope of a preprocessed signal, and processing 
-#' the average power per frequency band.
-#' 
-#' @param wave an R object or path to a wave file
-#' @param min_period the minimal rythmicity period expected, in seconds
-#' @param max_period the maximal rythmicity period expected, in seconds
-#' @param dj the frequency resolution of the cwt (in voices per octave)
-#' @param ... extra arguments passed to \code{analyze.wavelet()}
-#' @return a spectrum as a \code{data.table}. 
-#' It contains two columns: \code{power} and \code{period}. 
-#' The number of rows depend on the resolution and frequency range.
-#' @export
 beatSpectrum <- function(wave, 
                          min_period = 5e-4,#s
                          max_period=30, #s,
@@ -39,3 +23,5 @@ beatSpectrum <- function(wave,
                         verbose = F,...)
   data.table(power=wt$Power.avg, period = wt$Period * min_period)
 }
+
+
