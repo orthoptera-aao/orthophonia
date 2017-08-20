@@ -1,4 +1,4 @@
-importFrom("seewave", "meanspec", "spec", "specprop", "bwfilter")
+importFrom("seewave", "meanspec", "spec", "specprop", "bwfilter", "fpeaks")
 import("MASS")
 import("tools")
 importFrom("tuneR", "readWave", "mono", "stereo", "downsample")
