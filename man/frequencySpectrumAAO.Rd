@@ -8,12 +8,15 @@ Computes the frequency spectrum (50pc/3dB)
 Calculates the peak frequency and minimum and maximum values of the 50\%frequency bandwidth.
 }
 \usage{
-frequencySpectrumAAO(wave, plot=FALSE)
+frequencySpectrumAAO(wave, min_freq=1000, plot=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{wave}{
     A wave object
+  }
+  \item{min_freq}{
+  Freuqencies below this value will be discarded (Hertz).
   }
   \item{plot}{
     If TRUE plots the output.
