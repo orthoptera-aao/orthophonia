@@ -1,5 +1,5 @@
-\name{frequencySpectrum50pc}
-\alias{frequencySpectrum50pc}
+\name{frequencySpectrumAAO}
+\alias{frequencySpectrumAAO}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Computes the frequency spectrum (50pc/3dB)
@@ -8,7 +8,7 @@ Computes the frequency spectrum (50pc/3dB)
 Calculates the peak frequency and minimum and maximum values of the 50\%frequency bandwidth.
 }
 \usage{
-frequencySpectrum50pc(wave, plot=FALSE)
+frequencySpectrumAAO(wave, plot=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

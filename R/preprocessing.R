@@ -14,8 +14,8 @@ autoBandPassFilter <- function(
   std_wave <- standardiseWave(wave)
   spec <- seewave::meanspec(std_wave, wl=wl,ovlp = 75, plot=plot)
   
-  spec <- seewave::spec[spec[,"x"] > min_freq/1e3,]
-  f <- seewave::spec[which.max(spec[,"y"]),"x"] * 1e3
+  spec <- spec[spec[,"x"] > min_freq/1e3,]
+  f <- spec[which.max(spec[,"y"]),"x"] * 1e3
   props <- seewave::specprop(spec)
   sigma <- props$sd
   
