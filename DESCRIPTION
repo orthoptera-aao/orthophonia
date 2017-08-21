@@ -22,7 +22,7 @@ Collate:
     'features.R'
     'preprocessing.R'
     'beat_spectrum.R'
-    'frequencySpectrum50pc.R'
+    'frequencySpectrumAAO.R'
 URL: https://github.com/BioAcoustica/orthophonia
 Suggests: 
     testthat,
