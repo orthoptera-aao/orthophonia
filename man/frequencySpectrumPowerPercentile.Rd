@@ -22,7 +22,7 @@ frequencySpectrumPowerPercentile(wave, pc=50, min_freq = 1000, plot=FALSE)
   \item{min_freq}{
   Frequencies below this value will be ignored in the calculations.
   }
-  \itemn{plot}{
+  \item{plot}{
   If \code{TRUE} the power spectrum and percentage lines will be plotted.
   }
 }
