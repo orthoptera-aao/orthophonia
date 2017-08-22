@@ -5,7 +5,7 @@
 Computes the frequency spectrum (50pc/3dB)
 }
 \description{
-Calculates the peak frequency and minimum and maximum values of the 50\%frequency bandwidth.
+This function returns (1) the lowest frequency with an amplitude 25\% of the amplitude of the peak frequency; (2) the lowest frequency with an amplitude of 50\% of that of the peak frequency; (3) the peak (by amplitude) frequency; (4) the highest frequency with an amplitude of 50\% of that of the peak frequency; (5) the highest frequency with an amplitude of 25\% of that of the peak frequency.
 }
 \usage{
 frequencySpectrumAAO(wave, min_freq=1000, plot=FALSE)
@@ -26,7 +26,7 @@ frequencySpectrumAAO(wave, min_freq=1000, plot=FALSE)
 %%  ~~ If necessary, more details than the description above ~~
 %}
 \value{
-A vector of the 50\% frequency spectrum, and the peak frequency.
+A vector of the above described values.
 }
 %\references{
 %% ~put references to the literature/web site here ~
@@ -40,6 +40,6 @@ Ed Baker
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-%\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-%}
+\seealso{
+ \code{\link{frequencySpectrumPowerPercentile} \link{frequencySpectrumPowerQuartiles}}
+}

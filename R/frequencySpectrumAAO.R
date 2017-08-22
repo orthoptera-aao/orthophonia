@@ -21,6 +21,6 @@ frequencySpectrumAAO <- function(wave, min_freq = 1000, plot=FALSE) {
       abline(v=s50_range, col="red")
       abline(v=s25_range, col="blue")
     }
-    return(c(s25_range[1], s50_range, s25_range[2]))
+    return(round(c(s25_range[1], s50_range, s25_range[2]), digits=2))
   }
 }

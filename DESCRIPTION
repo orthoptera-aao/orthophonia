@@ -23,6 +23,7 @@ Collate:
     'preprocessing.R'
     'beat_spectrum.R'
     'frequencySpectrumAAO.R'
+    'frequencyPowerPercentile.R'
 URL: https://github.com/BioAcoustica/orthophonia
 Suggests: 
     testthat,
