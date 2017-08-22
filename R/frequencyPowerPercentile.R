@@ -28,6 +28,6 @@ frequencySpectrumPowerPercentile <- function(wave, pc=50, min_freq = 1000, plot=
     return(values)
 }
 
-frequencySprectrumPowerQuartiles <- function(wave, min_freq = 1000, plot=FALSE) {
+frequencySpectrumPowerQuartiles <- function(wave, min_freq = 1000, plot=FALSE) {
   return(orthophonia::frequencySpectrumPowerPercentile(wave, pc=50, min_freq = min_freq, plot=plot))
 }
