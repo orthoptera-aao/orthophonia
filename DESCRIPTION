@@ -24,8 +24,10 @@ Collate:
     'beat_spectrum.R'
     'frequencySpectrumAAO.R'
     'frequencyPowerPercentile.R'
+    'analysis.R'
 URL: https://github.com/BioAcoustica/orthophonia
 Suggests: 
     testthat,
     devtools,
     parallel
+RoxygenNote: 6.0.1

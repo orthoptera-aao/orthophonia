@@ -3,7 +3,11 @@ frequencySpectrumPowerPercentile <- function(wave, pc=50, min_freq = 1000, plot=
     #Discard frequencies below min_freq
     s <- s[s[,1] > min_freq/1e3,]
     
+    
     total <- sum(s[,2])
+    message(total)
+    
+    if (total == 0 || is.na(total)) {return(NULL)}
     
     cumulative <- 0
     
@@ -25,9 +29,9 @@ frequencySpectrumPowerPercentile <- function(wave, pc=50, min_freq = 1000, plot=
     if (plot==TRUE) {
       abline(v=values, col="red")
     }
-    return(values)
+    return(c(values, values[[2]] - values[[1]]))
 }
 
 frequencySpectrumPowerQuartiles <- function(wave, min_freq = 1000, plot=FALSE) {
-  return(orthophonia::frequencySpectrumPowerPercentile(wave, pc=50, min_freq = min_freq, plot=plot))
+  return(orthophonia::frequencySpectrumPowerPercentile(wave, pc=50, min_freq=1000, plot=FALSE))
 }

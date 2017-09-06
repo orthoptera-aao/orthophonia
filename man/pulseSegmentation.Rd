@@ -30,4 +30,3 @@ a \code{data.table} with the onset and duration of detected pulses
 \description{
 test
 }
-
